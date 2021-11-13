@@ -17,29 +17,18 @@ class SearchForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.onSearch(this.state.searchText);
-        console.log(`this.state.searchText: ${this.state.searchText} `)
         this.props.history.push(`/search/${this.state.searchText}`);
-        console.log(`this.state.searchText: ${this.state.searchText} `)
         e.currentTarget.reset();
     }
 
     // Checks the url against the current search, if no match, updates component
     componentDidUpdate(prevProps){
-        //const previousPath = prevProps.location.pathname    
-        //const url = window.location.pathname
         
-        //console.log(`url: ${url}`);
-        console.log("update");
         //Checks url for "search" and if previous path is the same as the current url, if not, searches again
         if(prevProps.location.pathname !== this.props.location.pathname){
-            console.log(`prevProps: ${prevProps.location.pathname}`);
-            console.log(`this pathname: ${this.props.location.pathname}`);
             if(this.props.location.pathname.includes('/search')) {
                 const newSearch = this.props.location.pathname.replace('/search/', '');
-                console.log(`new search: ${newSearch} `)
-                this.props.onSearch(newSearch)
-                
-                
+                this.props.onSearch(newSearch);
             } 
         }
     } 
