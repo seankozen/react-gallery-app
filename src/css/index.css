@@ -123,3 +123,67 @@ input {
     width: 100px;
   }
 }
+
+/*Loading Spinner*/
+
+frame {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 10em;
+  width: 10em;
+  margin: auto;
+}
+
+h3{
+  font-family: 'Roboto', 'sans-serif'; 
+  margin-top: .5em;
+}
+
+.loading-inner {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  margin: -35px 0 0 -35px;
+  top: 50%;
+  left: 50%;
+}
+
+.loading-inner::after {
+  content: "";
+  width: 60px;
+  height: 60px;
+  border: 5px solid #cce0de;
+  border-top-color: #4EC208;
+  border-radius: 50%;
+  animation: loading-inner 1s ease-out infinite;
+}
+
+@keyframes loading-inner {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.loading-outer {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.loading-outer::after {
+  content: "";
+  width: 68px;
+  height: 68px;
+  border: 5px solid #cce0de;
+  border-top-color: #056A1B;
+  border-radius: 50%;
+  animation: loading-outer 1s ease-out infinite;
+}
+
+@keyframes loading-outer {
+  to {
+    transform: rotate(-1turn);
+  }
+}

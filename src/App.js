@@ -11,6 +11,7 @@ import axios from 'axios';
 import SearchForm from './components/SearchForm';
 import Nav from './components/Nav';
 import PicList from './components/PicList';
+import LoadingSpinner from './components/LoadingSpinner';
 import FourOhFour from './components/FourOhFour';
 import apiKey from './config';
 
@@ -112,7 +113,8 @@ export default class App extends Component {
           <SearchForm onSearch={this.performSearch}/>
           <Nav/>
           { (this.state.loading) 
-          ? <p>Loading...</p>
+          ? <LoadingSpinner />
+          //<p>Loading...</p>
           :<Switch>
             <Route exact path="/" render={ () => <Redirect to="/rivers" /> } />
             <Route path="/mountains" render={() => <PicList data={this.state.mountains} title='Mountains'/>} />
