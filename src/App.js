@@ -6,7 +6,6 @@ import {
   Switch
 } from 'react-router-dom';
 
-
 import axios from 'axios';
 import SearchForm from './components/SearchForm';
 import Nav from './components/Nav';
@@ -17,7 +16,6 @@ import apiKey from './config';
 
 const api = apiKey;
 
-
 export default class App extends Component {
   
   state = {
@@ -27,7 +25,6 @@ export default class App extends Component {
       animals: [],
       title: '',
       loading: true
-
   }
   
   //Fetch pics from Flckr on start-up
@@ -36,11 +33,6 @@ export default class App extends Component {
     this.getRiverPics("river");
     this.getAnimalPics("wild_animal");
   }
-
-  componentWillUnmount() {
-    this.source.cancel("AXIOS Request Cancelled");
-  }
-
 
   // To search for photos in search form
   performSearch = (query) => {
