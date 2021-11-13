@@ -14,11 +14,11 @@ class SearchForm extends Component {
         this.setState({ searchText: e.target.value});
     }
 
-    //Handles the submission of a search query
+    //Handles the submission of a search query and pushes url on the history stack
     handleSubmit = e => {
         e.preventDefault();
         this.props.onSearch(this.state.searchText);
-        this.props.history.push(`/search/${this.state.searchText}`);
+        this.props.history.push(`/search/${this.state.searchText}`);    //Push onto history stack
         e.currentTarget.reset();
     }
 
