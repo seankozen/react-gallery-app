@@ -37,12 +37,13 @@ export default class App extends Component {
   }
 
   componentWillUnmount() {
-    this.source.cancel("AXIOS Request Cancelled")
+    this.source.cancel("AXIOS Request Cancelled");
   }
 
 
   // To search for photos in search form
   performSearch = (query) => {
+    this.setState({ loading: true });
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
       this.setState({
@@ -58,6 +59,7 @@ export default class App extends Component {
 
   // Fetch for Mountain pics
   getMountainPics = (query) => {
+    this.setState({ loading: true });
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
           this.setState({
@@ -72,6 +74,7 @@ export default class App extends Component {
 
   // Fetch for River pics
   getRiverPics = (query) => {
+    this.setState({ loading: true });
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
           this.setState({
@@ -86,6 +89,7 @@ export default class App extends Component {
 
   // Fetch for Animal pics
   getAnimalPics = (query) => {
+    this.setState({ loading: true });
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
           this.setState({
