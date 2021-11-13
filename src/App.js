@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import {
   BrowserRouter,
-  Navigate,
   Route,
-  Routes
+  Redirect,
+  Switch
 } from 'react-router-dom';
 
 
@@ -11,7 +11,6 @@ import axios from 'axios';
 import SearchForm from './components/SearchForm';
 import Nav from './components/Nav';
 import PicList from './components/PicList';
-import NotFound from './components/NotFound';
 import FourOhFour from './components/FourOhFour';
 import apiKey from './config';
 
@@ -24,7 +23,10 @@ export default class App extends Component {
       pics: [],
       mountains: [],
       rivers: [],
-      animals: []
+      animals: [],
+      title: '',
+      loading: true
+
   }
   
   //Fetch pics from Flckr on start-up
@@ -34,12 +36,19 @@ export default class App extends Component {
     this.getAnimalPics("wild_animal");
   }
 
+  componentWillUnmount() {
+    this.source.cancel("AXIOS Request Cancelled")
+  }
+
+
   // To search for photos in search form
   performSearch = (query) => {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response => {
       this.setState({
-        pics: response.data.photos.photo
+        pics: response.data.photos.photo,
+        title: query,
+        loading: false
       });
     })
     .catch(error => {
@@ -52,7 +61,8 @@ export default class App extends Component {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
           this.setState({
-            mountains: response.data.photos.photo
+            mountains: response.data.photos.photo,
+            loading: false
           });
         })
         .catch(error => {
@@ -65,7 +75,8 @@ export default class App extends Component {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
           this.setState({
-            rivers: response.data.photos.photo
+            rivers: response.data.photos.photo,
+            loading: false
           });
         })
         .catch(error => {
@@ -78,7 +89,8 @@ export default class App extends Component {
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${api}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
         .then(response => {
           this.setState({
-            animals: response.data.photos.photo
+            animals: response.data.photos.photo,
+            loading: false
           });
         })
         .catch(error => {
@@ -89,21 +101,23 @@ export default class App extends Component {
 
 
   render () {
-    console.log(this.state.pics);
+    //console.log(this.state.pics);
     return (
       <BrowserRouter>
         <div className="container">
           <SearchForm onSearch={this.performSearch}/>
           <Nav/>
-          <Routes>
-            <Route exact path="/" element={<Navigate to="/rivers" />}/>
-            <Route path="/mountains" element={<PicList data={this.state.mountains} title='Mountains'/>}/>
-            <Route path="/rivers" element={<PicList data={this.state.rivers} title='Rivers'/>}/>
-            <Route path="/animals" element={<PicList data={this.state.animals} title='Animals'/>}/>
-            <Route path="/search/:path" element={<PicList data={this.state.pics} title='Pics'/>}/>
-            <Route path="*" element={<FourOhFour/>} />  
-          </Routes>
-
+          { (this.state.loading) 
+          ? <p>Loading...</p>
+          :<Switch>
+            <Route exact path="/" render={ () => <Redirect to="/rivers" /> } />
+            <Route path="/mountains" render={() => <PicList data={this.state.mountains} title='Mountains'/>} />
+            <Route path="/rivers" render={() => <PicList data={this.state.rivers} title='Rivers'/>} />
+            <Route path="/animals" render={() => <PicList data={this.state.animals} title='Animals'/>} />
+            <Route path="/search/:query" render={() => <PicList data={this.state.pics} title={this.state.title}/>} /> 
+            <Route component={FourOhFour} />  
+          </Switch>
+        }
         </div>
       </BrowserRouter>
     );
