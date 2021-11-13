@@ -98,7 +98,7 @@ export default class App extends Component {
 
 
   render () {
-    //console.log(this.state.pics);
+    
     return (
       <BrowserRouter>
         <div className="container">
@@ -106,7 +106,6 @@ export default class App extends Component {
           <Nav/>
           { (this.state.loading) 
           ? <LoadingSpinner />
-          //<p>Loading...</p>
           :<Switch>
             <Route exact path="/" render={ () => <Redirect to="/rivers" /> } />
             <Route path="/mountains" render={() => <PicList data={this.state.mountains} title='Mountains'/>} />
