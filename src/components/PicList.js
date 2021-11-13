@@ -7,8 +7,6 @@ import NotFound from './NotFound';
 
 const PicList = props => {
 
-       
-
        const results = props.data;
         let pics;
         //Check for results from search.  If found, map data
