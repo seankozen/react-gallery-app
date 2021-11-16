@@ -12,7 +12,7 @@ import Nav from './components/Nav';
 import PicList from './components/PicList';
 import LoadingSpinner from './components/LoadingSpinner';
 import FourOhFour from './components/FourOhFour';
-import apiKey from './config';
+//import apiKey from './config';
 
 const api = process.env.REACT_APP_API_KEY;
 
