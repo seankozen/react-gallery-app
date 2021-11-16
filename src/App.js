@@ -14,7 +14,7 @@ import LoadingSpinner from './components/LoadingSpinner';
 import FourOhFour from './components/FourOhFour';
 import apiKey from './config';
 
-const api = apiKey;
+const api = process.env.REACT_APP_API_KEY;
 
 export default class App extends Component {
   
